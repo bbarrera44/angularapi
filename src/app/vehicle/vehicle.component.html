@@ -1,0 +1,73 @@
+<p>Veiculos</p>
+
+<form class="example-form">
+    <mat-form-field class="example-full-width">
+        <input aling="center" #box matInput placeholder="placa del vehiculo" (blur)="searchvehicle(box.value)" />
+        <div class="material-icons" style="position: fixed;">directions_car</div>
+
+    </mat-form-field>
+    <br>
+    <div class="icon-buttom">
+        <button mat-raised-button color="primary" type="button" (click)="searchvehicle(box.value)"><i
+                class="material-icons">search</i>Buscar
+            Placa</button>
+    </div>
+
+    <h3> Vehiculos dentro del parquedero </h3>
+    <mat-form-field class="example-full-width">
+        <input matInput placeholder="placa del vehiculo" #plateVehicle
+            (keyup.enter)="postDatavehicle(plateVehicle.value); plateVehicle.value=''" />
+    </mat-form-field>
+    <button mat-raised-button color="primary" type="button" title="Crear un vehiculo"
+        (click)="postDatavehicle(plateVehicle.value); plateVehicle.value=''">Crear Vehiculo</button>
+    <div class="conten-table-t">
+
+        <table class="mat-elevation-z8" *ngFor="let vehicle of vehicles">
+            <ng-container matColumnDef="plate" #draver class="example-sidenav" mode="side">
+                <th mat-header-cell> Placa </th>
+                <td mat-cell>
+                   <a (click)="edit(vehicle)">
+                        <span>  {{ vehicle.plate }}</span>   
+                        <span *ngIf="vehicle! == editVehicle"> </span>
+                        <input *ngIf="vehicle === editVehicle"
+                         (blur)="update(vehicle.id)" (keyup.enter)="update(vehicle.id)" [(ngModel)]="vehicle.plate" name="first"/> 
+                   </a>
+                </td>
+                <button mat-raised-button color="primary" type="button" title="delete vehicle"
+                    (click)="deleteVehicle(vehicle.plate)">Eliminar Vehiculo</button>
+                <!--   <button mat-raised-button color="primary" type="button" title="editar placa"
+                    (click)="editDatavehicle(id)"> Editar Placa</button>
+-->
+            </ng-container>
+            <mat-drawer-container class="example-container" style="background-color:bisque">
+                <mat-drawer #drawer class="example-sidenav" mode="side">
+                    <ng-container matColumnDef="name_parking">
+                        <th mat-header-cell> Nombre del parquadero </th>
+                        <td mat-cell> {{ vehicle.parking.name_parking }}</td>
+                    </ng-container>
+
+                    <ng-container matColumnDef="address">
+                        <th mat-header-cell> Direccion </th>
+                        <td mat-cell> {{vehicle.parking.address}} </td>
+                    </ng-container>
+
+                    <ng-container matColumnDef="phone">
+                        <th mat-header-cell> Telefono </th>
+                        <td mat-cell> {{vehicle.parking.phone}} </td>
+                    </ng-container>
+
+                    <ng-container matColumnDef="email">
+                        <th mat-header-cell> Email </th>
+                        <td mat-cell> {{vehicle.parking.email}} </td>
+                    </ng-container>
+                </mat-drawer>
+                <div class="sidenav-content" style="background-color:bisque;
+                ">
+                    <button mat-raised-button color="primary" type="button" mat-button (click)="drawer.toggle()">
+                        Mas informacion
+                    </button>
+                </div>
+            </mat-drawer-container>
+        </table>
+    </div>
+</form>

@@ -1,0 +1,23 @@
+<h5>buscador de parqueadero</h5>
+
+<form class="example-form">
+    <mat-form-field class="example-full-width">
+        <input #searchBox matInput placeholder="parking" (blur)="search(searchBox.value)" />
+        
+
+    </mat-form-field>
+
+    
+</form>
+
+<li *ngFor="let parking of parkings">
+    Nombre: {{ parking.name_parking }} - Telefono: {{ parking.phone }}  
+</li>
+<!--<li *ngFor="let parking of parkings ">
+    <div>{{ parking.name_parking }}</div>
+</li>-->
+
+<!-- <li *ngFor="let parking of parkings">
+        <div> {{ parking.name_parking }} </div>
+        <div>{{ parking.address }}</div>
+    </li> -->
